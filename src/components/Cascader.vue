@@ -6,32 +6,38 @@
       placement="bottom-start"
       :append-to-body="false"
       @show="getData"
-      >
-      <div class="form-box" slot="reference">
-        <el-input readonly v-model="ssq" :size="size" placeholder="请选择省市区"></el-input>
-        <i v-if="clearable && ssq" class="clearicon el-icon-circle-close" @click.stop="reset"></i>
+    >
+      <div slot="reference" class="form-box">
+        <el-input v-model="ssq" readonly :size="size" placeholder="请选择省市区" />
+        <i v-if="clearable && ssq" class="clearicon el-icon-circle-close" @click.stop="reset" />
       </div>
       <el-tabs v-model="activeName">
-        <el-tab-pane label="省份" name="0">prov</el-tab-pane>
-        <el-tab-pane label="城市" :disabled="!prov" name="1">city</el-tab-pane>
-        <el-tab-pane label="区县" :disabled="!city" name="2">region</el-tab-pane>
+        <el-tab-pane label="省份" name="0">
+          prov
+        </el-tab-pane>
+        <el-tab-pane label="城市" :disabled="!prov" name="1">
+          city
+        </el-tab-pane>
+        <el-tab-pane label="区县" :disabled="!city" name="2">
+          region
+        </el-tab-pane>
       </el-tabs>
-      <el-input class="search-input" clearable size="mini" v-model="filterKey" prefix-icon="el-icon-search" placeholder="请输入搜索内容"></el-input>
-      <div class="list-box" v-loading="loading" element-loading-spinner="el-icon-loading">
+      <el-input v-model="filterKey" class="search-input" clearable size="mini" prefix-icon="el-icon-search" placeholder="请输入搜索内容" />
+      <div v-loading="loading" class="list-box" :style="{height: `${height}px`}" element-loading-spinner="el-icon-loading">
         <div class="option-list" :style="`left: -${activeName * 100}%`">
           <div class="prov-list">
             <el-scrollbar style="height: 100%">
-              <span class="list-item" :class="{'is-active': item.name === prov}" v-for="item in provData.length ? provData : sourceProvData" :key="item.adcode || item.name" @click="setProv(item)">{{item.name}}</span>
+              <span v-for="item in provData.length ? provData : sourceProvData" :key="item.adcode || item.name" class="list-item" :class="{'is-active': item.name === prov}" @click="setProv(item)">{{ item.name }}</span>
             </el-scrollbar>
           </div>
           <div class="city-list">
             <el-scrollbar style="height: 100%">
-              <span class="list-item" :class="{'is-active': item.name === city}"  v-for="item in cityData.length ? cityData : sourceCityData" :key="item.adcode || item.name" @click="setCity(item)">{{item.name}}</span>
+              <span v-for="item in cityData.length ? cityData : sourceCityData" :key="item.adcode || item.name" class="list-item" :class="{'is-active': item.name === city}" @click="setCity(item)">{{ item.name }}</span>
             </el-scrollbar>
           </div>
           <div class="region-list">
             <el-scrollbar style="height: 100%">
-              <span class="list-item" :class="{'is-active': item.name === region}"  v-for="item in regionData.length ? regionData : sourceRegionData" :key="item.adcode || item.name" @click="setRegion(item)">{{item.name}}</span>
+              <span v-for="item in regionData.length ? regionData : sourceRegionData" :key="item.adcode || item.name" class="list-item" :class="{'is-active': item.name === region}" @click="setRegion(item)">{{ item.name }}</span>
             </el-scrollbar>
           </div>
         </div>
@@ -50,18 +56,22 @@ export default {
       type: Boolean,
       default: true
     },
+    height: {
+      type: Number,
+      default: 200
+    },
     options: {
       type: Object,
-      default(){}
+      default () {}
     },
     value: {
       type: Array,
       required: true,
-      default(){}
+      default () {}
     },
     data: {
       type: Array,
-      default(){}
+      default () {}
     }
   },
   data () {
@@ -84,7 +94,7 @@ export default {
   },
   watch: {
     value: {
-      handler(v){
+      handler (v) {
         this.ssq = v.join('/')
         v[0] && (this.prov = v[0])
         v[1] && (this.city = v[1])
@@ -92,20 +102,20 @@ export default {
       },
       immediate: true
     },
-    filterKey(n){
+    filterKey (n) {
       switch (this.activeName) {
         case '0':
-          this.provData = this.sourceProvData.filter(e=>{
+          this.provData = this.sourceProvData.filter(e => {
             return e.name.indexOf(n) > -1
           })
           break
         case '1':
-          this.cityData = this.sourceCityData.filter(e=>{
+          this.cityData = this.sourceCityData.filter(e => {
             return e.name.indexOf(n) > -1
           })
-          break;
+          break
         case '2':
-          this.regionData = this.sourceRegionData.filter(e=>{
+          this.regionData = this.sourceRegionData.filter(e => {
             return e.name.indexOf(n) > -1
           })
           break
@@ -113,19 +123,19 @@ export default {
     }
   },
   mounted () {
-    if(!window.AMap && !this.data){
-      const s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src = 'https://webapi.amap.com/maps?v=1.4.15&key=d1b80b9c953f8313296e0a1e7dd9d7d3';
-      document.body.appendChild(s);
+    if (!window.AMap && !this.data) {
+      const s = document.createElement('script')
+      s.type = 'text/javascript'
+      s.src = 'https://webapi.amap.com/maps?v=1.4.15&key=d1b80b9c953f8313296e0a1e7dd9d7d3'
+      document.body.appendChild(s)
     }
-    if(this.data){
-      this.sourceProvData  = this.data
+    if (this.data) {
+      this.sourceProvData = this.data
     }
   },
   methods: {
-    getData(){
-      if(this.sourceProvData.length){
+    getData () {
+      if (this.sourceProvData.length) {
         return
       }
       this.loading = true
@@ -139,46 +149,46 @@ export default {
           subdistrict: 3
         })
         // 搜索所有省/直辖市信息
-        districtSearch.search('中国', (status, res) =>{
+        districtSearch.search('中国', (status, res) => {
           this.loading = false
-          if(res.info === 'OK') {
+          if (res.info === 'OK') {
             this.sourceProvData = res.districtList[0].districtList
           }
         })
       })
     },
-    setProv(item){
+    setProv (item) {
       this.prov = item.name
       this.activeName = '1'
       this.filterKey = ''
       this.provData = []
       this.$emit('input', [this.prov])
-      this.sourceProvData.map(e=>{
-        if(this.prov === e.name){
+      this.sourceProvData.map(e => {
+        if (this.prov === e.name) {
           this.sourceCityData = e.districtList
         }
       })
     },
-    setCity(item){
+    setCity (item) {
       this.city = item.name
       this.activeName = '2'
       this.filterKey = ''
       this.cityData = []
       this.$emit('input', [this.prov, this.city])
-      this.sourceCityData.map(e=>{
-        if(this.city === e.name){
+      this.sourceCityData.map(e => {
+        if (this.city === e.name) {
           this.sourceRegionData = e.districtList
         }
       })
     },
-    setRegion(item){
+    setRegion (item) {
       this.region = item.name
       this.filterKey = ''
       this.regionData = []
       this.$emit('input', [this.prov, this.city, this.region])
       this.visible = false
     },
-    reset(){
+    reset () {
       this.ssq = ''
       this.activeName = '0'
       this.provData = []
@@ -187,7 +197,7 @@ export default {
       this.prov = ''
       this.city = ''
       this.region = ''
-      this.$emit('input',[])
+      this.$emit('input', [])
     }
   }
 }
@@ -238,19 +248,18 @@ export default {
 }
 .list-box{
   overflow: hidden;
-  height: 300px;
   width: 100%;
   position: relative;
   padding-top: 10px;
 }
 .option-list{
-  height: 300px;
+  height: 100%;
   width: 300%;
   position: absolute;
   transition: left .3s
 }
 .prov-list,.city-list,.region-list{
-  height: 300px;
+  height: 100%;
   width: 33.3%;
   overflow: hidden;
   float: left;
@@ -264,6 +273,9 @@ export default {
     }
     &.is-active{
       background: #f2f2f2
+    }
+    &:last-of-type{
+      margin-bottom: 10px;
     }
   }
 }

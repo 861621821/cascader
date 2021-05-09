@@ -2,13 +2,12 @@
   <div id="app" style="height: 100vh;">
     <el-form ref="form" inline :model="form" :rules="rules">
       <el-form-item label="姓名" prop="name">
-        <el-input clearable v-model="form.name" placeholder="请输入姓名"></el-input>
+        <el-input v-model="form.name" clearable placeholder="请输入姓名" />
       </el-form-item>
       <el-form-item label="省市区" prop="ssq">
-        <xl-cascader clearable v-model="form.ssq"/>
+        <xl-cascader v-model="form.ssq" :data="ssqData" clearable />
       </el-form-item>
     </el-form>
-    <el-button @click="fn">Submit</el-button>
   </div>
 </template>
 
@@ -19,9 +18,8 @@ export default {
     xlCascader
   },
   data () {
-    const validateSsq = (rule, value, callback)=> {
-      console.log(value);
-      if (value.length){
+    const validateSsq = (rule, value, callback) => {
+      if (value.length) {
         callback()
       } else {
         callback(new Error('请选择省市区'))
@@ -35,16 +33,74 @@ export default {
       form: {
         name: '',
         ssq: []
-      }
+      },
+      ssqData: [
+        {
+          name: '湖北省',
+          districtList: [
+            {
+              name: '武汉市',
+              districtList: [
+                { name: '江夏区' },
+                { name: '洪山区' },
+                { name: '武昌区' }
+              ]
+            },
+            {
+              name: '荆门市',
+              districtList: [
+                { name: '东宝区' },
+                { name: '掇刀区' },
+                { name: '沙洋县' }
+              ]
+            }
+          ]
+        },
+        {
+          name: '广东省',
+          districtList: [
+            {
+              name: '深圳市',
+              districtList: [
+                { name: '南山区' },
+                { name: '宝安区' },
+                { name: '福田区' }
+              ]
+            },
+            {
+              name: '广州市',
+              districtList: [
+                { name: '天河区' },
+                { name: '番禺区' },
+                { name: '越秀区' }
+              ]
+            }
+          ]
+        },
+        {
+          name: '河南省',
+          districtList: [
+            {
+              name: '信阳市',
+              districtList: [
+                { name: '淮滨县' },
+                { name: '罗山县' }
+              ]
+            },
+            {
+              name: '南阳市',
+              districtList: [
+                { name: '西峡县' },
+                { name: '卧龙区' }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   methods: {
-    fn(){
-      console.log(this.form);
-      this.$refs.form.validate(v=>{
-        console.log(v);
-      })
-    }
+
   }
 }
 </script>
