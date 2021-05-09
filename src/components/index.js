@@ -1,7 +1,7 @@
-import xlCascader from "./Cascader.vue"
+import xlCascader from './Cascader.vue'
 
 export default {
-  install(Vue){
+  install (Vue) {
     Vue.component('xlCascader', xlCascader)
   }
 }

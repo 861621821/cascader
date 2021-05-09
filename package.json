@@ -1,8 +1,8 @@
 {
   "name": "xl-cascader",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "private": false,
-  "description": "基于vue2、el-popover开发的省市区三级联动表单组件",
+  "description": "基于vue2、el-popover开发的省市区三级联动表单组件，支持自定义数据源",
   "keywords": [
     "vue",
     "vue2.0",
