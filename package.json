@@ -1,6 +1,6 @@
 {
   "name": "xl-cascader",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": false,
   "description": "基于vue2、el-popover开发的省市区三级联动表单组件，支持自定义数据源",
   "keywords": [
@@ -23,7 +23,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name xl-cascader ./src/components/index.js"
+    "lib": "vue-cli-service build --target lib --name xlCascader ./src/components/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",

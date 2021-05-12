@@ -1,5 +1,9 @@
 ### 注意事项  
-> xl-cascader基于element-ui开发，所以你的项目需要先安装[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)。默认展示全国所有省市区信息，支持自定义数据源。
+> xl-cascader基于element-ui开发，所以你的项目需要先安装[element-ui](https://element.eleme.cn/#/zh-CN/component/installation)。默认展示全国所有省市区信息，支持自定义数据源。  
+
+### 效果
+<img src="http://xilan-lw.gitee.io/zero-one-document/images/component/省市区.gif">  
+
 ### npm安装
 ``` js
 npm i xl-cascader --save
@@ -29,9 +33,9 @@ Vue.use(xlCascader)
 | size | string | 用于控制该表单内组件的尺寸 | `medium`  `small`  `mini` | - |
 | clearable | boolean | 是否可清空 | - | true |
 | height | number | 弹出框的高度 | - | 300 |
-| data | array | 默认情况下展示全国所有省市区，如果只想展示部分，手动传入 | - | - |
+| data | array | 自定义数据源，不设置将展示全国所有省市区信息 | - | - |
 
-### 自定义数据源示例  
+### 自定义数据源格式  
 ```js
 [
   {
@@ -56,4 +60,7 @@ Vue.use(xlCascader)
     ]
   }
 ]
-```
+```  
+
+### 欢迎提BUG 提需求
+<img style="width: 300px" src="http://xilan-lw.gitee.io/zero-one-document/images/me.jpg"> 
